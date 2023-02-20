@@ -61,11 +61,11 @@ def read_nodes2(card, codec):
   try:
     c = HDACodec(card, codec)
   except OSError as msg:
-    if msg[0] == 13:
+    if msg.errno == 13:
       print("Codec %i/%i unavailable - permissions..." % (card, codec))
-    elif msg[0] == 16:
+    elif msg.errno == 16:
       print("Codec %i/%i is busy..." % (card, codec))
-    elif msg[0] != 2:
+    elif msg.errno != 2:
       print("Codec %i/%i access problem (%s)" % repr(msg))
     return
   c.analyze()
