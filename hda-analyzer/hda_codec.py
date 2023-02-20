@@ -1838,7 +1838,7 @@ os.close(FD)
     return text
 
 def HDA_card_list():
-  from dircache import listdir
+  from os import listdir
   result = []
   for name in listdir('/dev/snd/'):
     if name.startswith('controlC'):
