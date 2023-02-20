@@ -67,7 +67,7 @@ def do_diff():
       diff += do_diff1(c, DIFF_TREE[card][codec])
   if len(diff) > 0:
     open(DIFF_FILE, "w+").write(diff + '\n')
-    print "Diff was stored to: %s" % DIFF_FILE
+    print("Diff was stored to: %s" % DIFF_FILE)
   return (diff and hw > 0) and True or False
 
 class NodeGui(Gtk.ScrolledWindow):
@@ -501,7 +501,7 @@ class NodeGui(Gtk.ScrolledWindow):
       try:
         val = int(val)
       except:
-        print "Unknown category value '%s'" % val
+        print("Unknown category value '%s'" % val)
         return
     if node.dig1_set_value('category', val):
       HDA_SIGNAL.emit("hda-node-changed", self, node)
@@ -692,7 +692,7 @@ class NodeGui(Gtk.ScrolledWindow):
       vbox.pack_start(self.__build_aud(node), False, False,0)
     else:
       if not node.wtype_id in ['AUD_MIX', 'BEEP', 'AUD_SEL']:
-        print 'Node type %s has no GUI support' % node.wtype_id
+        print('Node type %s has no GUI support' % node.wtype_id)
     if node.proc_wid:
       vbox.pack_start(self.__build_proc(node), False, False,0)
 
@@ -751,7 +751,8 @@ class NodeGui(Gtk.ScrolledWindow):
 
     return hbox
 
-  def __gpio_toggled(self, button, (codec, id, idx)):
+  def __gpio_toggled(self, button, xxx_todo_changeme):
+    (codec, id, idx) = xxx_todo_changeme
     if codec.gpio.set(id, idx, button.get_active()):
       HDA_SIGNAL.emit("hda-codec-changed", self, codec)
     button.set_active(codec.gpio.test(id, idx))
@@ -877,6 +878,6 @@ class TrackWindows:
         for card in CODEC_TREE:
           for codec in CODEC_TREE[card]:
             CODEC_TREE[card][codec].revert()
-        print "Settings for all codecs were reverted..."
+        print("Settings for all codecs were reverted...")
 
 TRACKER = TrackWindows()
