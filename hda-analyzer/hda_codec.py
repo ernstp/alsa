@@ -291,7 +291,7 @@ class HDAAmpCaps:
             return None
         if self.nsteps == 0:
             return 0
-        return (val * 100) / self.nsteps
+        return (val * 100) // self.nsteps
 
     def get_val_str(self, val):
         if self.ofs is None:
@@ -300,7 +300,7 @@ class HDAAmpCaps:
             db = self.get_val_db(val & 0x7f)
             res = val & 0x80 and "{mute-" or "{"
             res += "0x%02x" % (val & 0x7f)
-            res += ":%02i.%idB" % (db / 100, db % 100)
+            res += ":%02i.%idB" % (db // 100, db % 100)
             res += ":%i%%}" % (self.get_val_perc(val & 0x7f))
             return res
 
@@ -328,11 +328,11 @@ class HDAAmpVal:
                 self.indices = 0
         self.reread()
 
-    def __write_val(self, idx):
+    def __write_val(self, idx: int):
         dir = self.dir == HDA_OUTPUT and (1 << 15) or (1 << 14)
         verb = VERBS['SET_AMP_GAIN_MUTE']
         if self.stereo:
-            indice = idx / 2
+            indice = idx // 2
             dir |= idx & 1 and (1 << 12) or (1 << 13)
         else:
             indice = idx
